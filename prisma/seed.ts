@@ -3,28 +3,28 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import "dotenv/config";
 
 const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL,
+    connectionString: process.env.DATABASE_URL,
 });
 
 const prisma = new PrismaClient({
-  adapter,
+    adapter,
 });
 
 const userData: Prisma.UserCreateInput[] = [
-  {
-    name: "Alex",
-    email: "aesakof@gmail.com",
-  },
-  {
-    name: "Charles",
-    email: "charles@bestboy.com",
-  },
+    {
+        name: "Alex",
+        email: "aesakof@gmail.com",
+    },
+    {
+        name: "Charles",
+        email: "charles@bestboy.com",
+    },
 ];
 
 export async function main() {
-  for (const u of userData) {
-    await prisma.user.create({ data: u });
-  }
+    for (const u of userData) {
+        await prisma.user.create({ data: u });
+    }
 }
 
 main();
