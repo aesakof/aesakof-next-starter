@@ -4,8 +4,8 @@ export default async function Home() {
     // const users = await prisma.user.findMany();
     // console.log(users)
     return (
-        <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center -mt-16">
-            <h1 className="text-4xl font-bold mb-8 font-(family-name:--font-geist-sans) text-[#333333]">
+        <div className="flex-1 flex flex-col items-center justify-center">
+            <h1 className="text-4xl font-bold mb-8 font-(family-name:--font-geist-sans)">
                 THE HOME PAGE
             </h1>
             {/* <ol className="list-decimal list-inside font-(family-name:--font-geist-sans) text-[#333333]">
