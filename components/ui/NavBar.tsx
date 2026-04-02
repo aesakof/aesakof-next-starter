@@ -15,6 +15,7 @@ export default function NavBar() {
             <div className="flex justify-between items-center">
                 <div>
                     <Link href="/" className="px-4 py-2">[PROJECT LOGO HERE]</Link>
+                    <Link href="/ui-samples" className="px-3 py-2 hover:bg-slate-700 rounded-sm">UI Samples</Link>
                 </div>
                 <div className="md:flex items-center gap-4 hidden">
                     {
