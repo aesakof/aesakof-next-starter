@@ -36,8 +36,19 @@ export default function Button({
     }
 
     return (
-        <button className={`border m-4 ${sizeClasses[size]} ${variantClasses[variant]}`}>
-            {children}
+        <button
+            type={type}
+            onClick={onClick}
+            disabled={disabled || isLoading} 
+            className={`
+                transition-colors font-medium
+                ${disabled || isLoading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+                ${fullWidth ? "w-full" : ""} 
+                ${sizeClasses[size]} 
+                ${variantClasses[variant]}
+            `}
+        >
+            {isLoading ? "Loading..." : children}
         </button>
     )
 }
