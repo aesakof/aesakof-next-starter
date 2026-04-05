@@ -26,12 +26,14 @@ export default function SignIn() {
         if (isEmail) {
             const { data, error } = await authClient.signIn.email({
                 email: formData.emailOrUsername,
-                password: formData.password
+                password: formData.password,
+                callbackURL: "/"
             })
         } else {
             const { data, error } = await authClient.signIn.username({
                 username: formData.emailOrUsername,
-                password: formData.password
+                password: formData.password,
+                callbackURL: "/"
             })
         }
         
@@ -46,10 +48,10 @@ export default function SignIn() {
                 <div className="flex flex-col gap-1">
                     <label htmlFor="email">Username or email address</label>
                     <input 
-                        id="email" 
-                        name="email" 
-                        type="email" 
-                        placeholder="Email Address"
+                        id="emailOrUsername" 
+                        name="emailOrUsername" 
+                        type="text" 
+                        placeholder="Username or email address"
                         onChange={handleChange} 
                         className="border border-gray-400 rounded-md px-3 py-2 w-full" 
                     />

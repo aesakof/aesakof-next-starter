@@ -31,7 +31,8 @@ export default function SignUp() {
             email: formData.email,
             password: formData.password,
             username: formData.username,
-            name: ""
+            name: "",
+            callbackURL: "/"
         })
     }
 

@@ -4,10 +4,10 @@ import { useState } from "react"
 import Link from "next/link"
 import UserMenu from "./UserMenu"
 import { Menu, X } from "lucide-react"
+import { authClient } from "@/lib/auth-client"
 
 export default function NavBar() {
-
-    const [loggedIn, setLoggedIn] = useState(false)
+    const { data: session, isPending } = authClient.useSession()
     const [smallMenuOpen, setSmallMenuOpen] = useState(false)
 
     return (
@@ -19,7 +19,7 @@ export default function NavBar() {
                 </div>
                 <div className="md:flex items-center gap-4 hidden">
                     {
-                        loggedIn ? <UserMenu /> : 
+                        session ? <UserMenu username={session.user.username!}/> : 
                         <>
                             <Link href="/sign-in" className="px-3 py-2 hover:bg-slate-700 rounded-sm">Sign In</Link>
                             <Link href="/sign-up" className="px-3 py-2 hover:bg-slate-700 rounded-sm">Register</Link>
