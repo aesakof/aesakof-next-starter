@@ -2,10 +2,21 @@
 
 import Button from "@/components/ui/Button"
 import Link from "next/link"
+import { useSearchParams } from "next/navigation"
 import { useState } from "react"
 import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation"
+
+// export const metadata = {
+//     title: "Sign In",
+//     description: "Sign in to your account"
+// }
 
 export default function SignIn() {
+    const searchParams = useSearchParams()
+    const redirect = searchParams.get("redirect") ?? "/"
+    const router = useRouter()
+
     const [errors, setErrors] = useState({
         emailOrUsername: "",
         password: "",
@@ -27,13 +38,17 @@ export default function SignIn() {
             const { data, error } = await authClient.signIn.email({
                 email: formData.emailOrUsername,
                 password: formData.password,
-                callbackURL: "/"
+                fetchOptions: {
+                    onSuccess: () => { router.push(redirect) }
+                }
             })
         } else {
             const { data, error } = await authClient.signIn.username({
                 username: formData.emailOrUsername,
                 password: formData.password,
-                callbackURL: "/"
+                fetchOptions: {
+                    onSuccess: () => { router.push(redirect) }
+                }
             })
         }
         

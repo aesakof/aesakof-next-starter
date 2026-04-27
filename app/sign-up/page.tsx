@@ -4,8 +4,15 @@ import Button from "@/components/ui/Button";
 import Link from "next/link";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation"
+
+// export const metadata = {
+//     title: "Sign Up",
+//     description: "Sign up for an account"
+// }
 
 export default function SignUp() {
+    const router = useRouter()
 
     const [errors, setErrors] = useState({
         email: "",
@@ -32,7 +39,9 @@ export default function SignUp() {
             password: formData.password,
             username: formData.username,
             name: "",
-            callbackURL: "/"
+            fetchOptions: {
+                    onSuccess: () => { router.push("/") }
+            }
         })
     }
 

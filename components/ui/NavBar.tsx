@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import UserMenu from "./UserMenu"
 import { Menu, X } from "lucide-react"
 import { authClient } from "@/lib/auth-client"
@@ -9,6 +10,7 @@ import { authClient } from "@/lib/auth-client"
 export default function NavBar() {
     const { data: session, isPending } = authClient.useSession()
     const [smallMenuOpen, setSmallMenuOpen] = useState(false)
+    const pathname = usePathname()
 
     return (
         <header className="bg-slate-900 text-white p-2 relative">
@@ -21,7 +23,7 @@ export default function NavBar() {
                     {
                         session ? <UserMenu username={session.user.username!}/> : 
                         <>
-                            <Link href="/sign-in" className="px-3 py-2 hover:bg-slate-700 rounded-sm">Sign In</Link>
+                            <Link href={`/sign-in?redirect=${pathname}`} className="px-3 py-2 hover:bg-slate-700 rounded-sm">Sign In</Link>
                             <Link href="/sign-up" className="px-3 py-2 hover:bg-slate-700 rounded-sm">Register</Link>
                         </>
                     }
@@ -32,7 +34,7 @@ export default function NavBar() {
             </div>
             {smallMenuOpen && 
                 <div className="md:hidden flex flex-col px-4 py-2 rounded-b-sm absolute top-full left-0 right-0 bg-slate-800">
-                    <Link href="/sign-in" onClick={() => setSmallMenuOpen(false)} className="px-3 py-1 hover:bg-slate-700 rounded-sm">Sign In</Link>
+                    <Link href={`/sign-in?redirect=${pathname}`}  onClick={() => setSmallMenuOpen(false)} className="px-3 py-1 hover:bg-slate-700 rounded-sm">Sign In</Link>
                     <Link href="/sign-up" onClick={() => setSmallMenuOpen(false)} className="px-3 py-1 hover:bg-slate-700 rounded-sm">Register</Link>
                 </div>
             }
