@@ -11,5 +11,10 @@ export const auth = betterAuth({
     },
     plugins: [
         username()
-    ]
+    ],
+    user: {
+        deleteUser: {
+            enabled: true
+        }
+    }
 });
