@@ -1,10 +1,8 @@
-import Link from "next/link"
-import { usePathname } from "next/navigation"
 import React from "react"
-
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import SideNav from "@/components/ui/SideNav";
 
 export default async function SettingsLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     const session = await auth.api.getSession({
@@ -13,8 +11,6 @@ export default async function SettingsLayout({ children }: Readonly<{ children: 
     if(!session) {
         redirect("/sign-in")
     }
-
-    const pathname = usePathname()
 
     const links = [
         { label: "Account", href: "/settings/account" },
@@ -28,24 +24,8 @@ export default async function SettingsLayout({ children }: Readonly<{ children: 
                 Manage your profile and account settings.
             </p>
             <div className="flex gap-8">
-                <nav className="flex flex-col gap-0.5 w-44 shrink-0">
-                    {links.map(({ label, href }) => {
-                        const isActive = pathname === href
-                        return (
-                            <Link
-                                key={href}
-                                href={href}
-                                className={`px-3 py-1.5 rounded-md text-sm transition-colors ${
-                                    isActive
-                                        ? "bg-slate-100 text-slate-900 font-medium"
-                                        : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"
-                                }`}
-                            >
-                                {label}
-                            </Link>
-                        )
-                    })}
-                </nav>
+                <SideNav links={links} />
+
                 <main className="flex-1 min-w-0">{children}</main>
             </div>
         </div>
