@@ -14,12 +14,8 @@ import { useRouter } from "next/navigation"
 export default function SignUp() {
     const router = useRouter()
 
-    const [errors, setErrors] = useState({
-        email: "",
-        password: "",
-        confirmPassword: "",
-        username: ""
-    })
+    const [errors, setErrors] = useState("")
+    const [loading, setLoading] = useState(false)
 
     const [formData, setFormData] = useState({
         email: "",
@@ -34,15 +30,29 @@ export default function SignUp() {
 
     async function handleSubmit(e: React.BaseSyntheticEvent) {
         e.preventDefault()
+        setErrors("")
+
+        if (formData.password !== formData.confirmPassword) {
+            setErrors("Passwords do not match.")
+            return
+        }
+        if (formData.password.length < 8) {
+            setErrors("Password must be at least 8 characters.")
+            return
+        }
+
+        setLoading(true)
         const { data, error } = await authClient.signUp.email({
             email: formData.email,
             password: formData.password,
             username: formData.username,
             name: "",
             fetchOptions: {
-                    onSuccess: () => { router.push("/") }
+                    onSuccess: () => router.push("/verify-email")
             }
         })
+        setLoading(false)
+        if (error) setErrors(error.message ?? "Something went wrong.")
     }
 
     return (
@@ -61,7 +71,6 @@ export default function SignUp() {
                         onChange={handleChange} 
                         className="border border-gray-400 rounded-md px-3 py-2 w-full" 
                     />
-                    {errors.email && <p>{errors.email}</p>}
                 </div>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="username">Username</label>
@@ -73,7 +82,6 @@ export default function SignUp() {
                         onChange={handleChange} 
                         className="border border-gray-400 rounded-md px-3 py-2 w-full" 
                     />
-                    {errors.username && <p>{errors.username}</p>}
                 </div>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="password">Password</label>
@@ -85,7 +93,6 @@ export default function SignUp() {
                         onChange={handleChange} 
                         className="border border-gray-400 rounded-md px-3 py-2 w-full" 
                     />
-                    {errors.password && <p>{errors.password}</p>}
                 </div>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="confirmPassword">Confirm Password</label>
@@ -97,9 +104,11 @@ export default function SignUp() {
                         onChange={handleChange} 
                         className="border border-gray-400 rounded-md px-3 py-2 w-full" 
                     />
-                    {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
                 </div>
-                <Button type="submit" fullWidth={true}>Register</Button>
+                <div className="h-5">
+                    {errors && <p className="text-sm text-red-600">{errors}</p>} 
+                </div> 
+                <Button type="submit" isLoading={loading} fullWidth={true}>Register</Button>
                 <p>Already have an account? <Link href="/sign-in" className="hover:underline text-blue-600">Sign in</Link></p>
             </form>
         </div>

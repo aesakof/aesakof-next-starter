@@ -19,7 +19,8 @@
     "next": "16.2.1",
     "pg": "^8.20.0",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "resend": "^6.12.3"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
@@ -43,7 +44,7 @@
   "overrides": {
     "hono": "^4.12.7",
     "lodash": "^4.17.22",
-    "@hono/node-server": "^1.19.10",
+    "@hono/node-server": "^1.19.13",
     "effect": "^3.20.0"
   }
 }

@@ -17,10 +17,8 @@ export default function SignIn() {
     const redirect = searchParams.get("redirect") ?? "/"
     const router = useRouter()
 
-    const [errors, setErrors] = useState({
-        emailOrUsername: "",
-        password: "",
-    })
+    const [errors, setErrors] = useState("")
+    const [loading, setLoading] = useState(false)
 
     const [formData, setFormData] = useState({
         emailOrUsername: "",
@@ -33,25 +31,24 @@ export default function SignIn() {
 
     async function handleSubmit(e: React.BaseSyntheticEvent) {
         e.preventDefault()
+        setErrors("")
+        setLoading(true)
+
         const isEmail = formData.emailOrUsername.includes("@")
-        if (isEmail) {
-            const { data, error } = await authClient.signIn.email({
+        const { error } = isEmail
+            ? await authClient.signIn.email({
                 email: formData.emailOrUsername,
                 password: formData.password,
-                fetchOptions: {
-                    onSuccess: () => { router.push(redirect) }
-                }
+                fetchOptions: { onSuccess: () => router.push(redirect) }
             })
-        } else {
-            const { data, error } = await authClient.signIn.username({
+            : await authClient.signIn.username({
                 username: formData.emailOrUsername,
                 password: formData.password,
-                fetchOptions: {
-                    onSuccess: () => { router.push(redirect) }
-                }
+                fetchOptions: { onSuccess: () => router.push(redirect) }
             })
-        }
-        
+
+        setLoading(false)
+        if (error) setErrors(error.message ?? "Something went wrong.")
     }
 
     return (
@@ -70,10 +67,12 @@ export default function SignIn() {
                         onChange={handleChange} 
                         className="border border-gray-400 rounded-md px-3 py-2 w-full" 
                     />
-                    {errors.emailOrUsername && <p>{errors.emailOrUsername}</p>}
                 </div>
                 <div className="flex flex-col gap-1">
-                    <label htmlFor="password">Password</label>
+                    <div className="flex justify-between">
+                        <label htmlFor="password">Password</label>
+                        <Link href="/forgot-password" className="hover:underline text-blue-600">Forgot password?</Link>
+                    </div>
                     <input 
                         id="password" 
                         name="password" 
@@ -82,9 +81,11 @@ export default function SignIn() {
                         onChange={handleChange}
                         className="border border-gray-400 rounded-md px-3 py-2 w-full" 
                     />
-                    {errors.password && <p>{errors.password}</p>}
                 </div>
-                <Button type="submit" fullWidth={true}>Sign In</Button>
+                <div className="h-5">
+                    {errors && <p className="text-sm text-red-600">{errors}</p>}  
+                </div>              
+                <Button type="submit" isLoading={loading} fullWidth={true}>Sign In</Button>
                 <p>Need an account? <Link href="/sign-up" className="hover:underline text-blue-600">Sign up</Link></p>
             </form>
         </div>
