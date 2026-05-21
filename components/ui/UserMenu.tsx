@@ -1,4 +1,6 @@
-import { useState, useEffect, useRef} from 'react'
+"use client"
+
+import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from "next/navigation"
 import useClickOutside from '@/hooks/UseClickOutside'
@@ -8,11 +10,10 @@ type UserMenuProps = {
     username: string
 }
 
-export default function UserMenu({username}: UserMenuProps) {
+export default function UserMenu({ username }: UserMenuProps) {
     const [open, setOpen] = useState(false)
     const menuRef = useClickOutside(onClickOutside)
     const router = useRouter()
-
 
     function onClickOutside() {
         setOpen(false)
@@ -21,7 +22,7 @@ export default function UserMenu({username}: UserMenuProps) {
     async function handleSignout() {
         await authClient.signOut({
             fetchOptions: {
-                    onSuccess: () => { router.push("/sign-in") }
+                onSuccess: () => { router.push("/sign-in") }
             }
         })
         setOpen(false)
@@ -29,14 +30,17 @@ export default function UserMenu({username}: UserMenuProps) {
 
     return (
         <div ref={menuRef} className="relative">
-            <button onClick={() => setOpen(!open)} className="px-3 py-2 hover:bg-slate-700 rounded-sm">
+            <button
+                onClick={() => setOpen(!open)}
+                className="px-3 py-2 hover:bg-surface rounded-sm text-text-primary"
+            >
                 {username}
             </button>
 
-            {open && 
-                <div className="absolute right-0 mt-2 w-48 bg-slate-800 text-white rounded-sm shadow-lg flex flex-col">
-                    <Link href="/settings" className="px-4 py-2 text-white hover:bg-slate-700 rounded-sm">Settings</Link>
-                    <button onClick={handleSignout} className="px-4 py-2 text-white text-left hover:bg-slate-700 rounded-sm">Sign out</button>
+            {open &&
+                <div className="absolute right-0 mt-2 w-48 bg-surface-raised border border-border rounded-sm shadow-lg flex flex-col">
+                    <Link href="/settings" className="px-4 py-2 text-text-primary hover:bg-surface rounded-sm">Settings</Link>
+                    <button onClick={handleSignout} className="px-4 py-2 text-text-primary text-left hover:bg-surface rounded-sm">Sign out</button>
                 </div>
             }
         </div>

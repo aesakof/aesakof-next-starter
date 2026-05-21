@@ -13,31 +13,31 @@ export default function NavBar() {
     const pathname = usePathname()
 
     return (
-        <header className="bg-slate-900 text-white p-2 relative">
+        <header className="bg-surface-raised border-b border-border text-text-primary p-2 relative">
             <div className="flex justify-between items-center">
                 <div>
                     <Link href="/" className="px-4 py-2">[PROJECT LOGO HERE]</Link>
-                    <Link href="/ui-samples" className="px-3 py-2 hover:bg-slate-700 rounded-sm">UI Samples</Link>
+                    <Link href="/ui-samples" className="px-3 py-2 hover:bg-surface rounded-sm">UI Samples</Link>
                 </div>
                 <div className="md:flex items-center gap-4 hidden">
                     {
-                        session ? <UserMenu username={session.user.username!}/> : 
+                        session ? <UserMenu username={session.user.username!}/> :
                         <>
-                            <Link href={`/sign-in?redirect=${pathname}`} className="px-3 py-2 hover:bg-slate-700 rounded-sm">Sign In</Link>
-                            <Link href="/sign-up" className="px-3 py-2 hover:bg-slate-700 rounded-sm">Register</Link>
+                            <Link href={`/sign-in?redirect=${pathname}`} className="px-3 py-2 hover:bg-surface rounded-sm">Sign In</Link>
+                            <Link href="/sign-up" className="px-3 py-2 hover:bg-surface rounded-sm">Register</Link>
                         </>
                     }
                 </div>
-                <button onClick={() => setSmallMenuOpen(!smallMenuOpen)} className="md:hidden flex px-4 py-2 hover:bg-slate-700 rounded-sm">
+                <button onClick={() => setSmallMenuOpen(!smallMenuOpen)} className="md:hidden flex px-4 py-2 hover:bg-surface rounded-sm">
                     {smallMenuOpen ? <X /> : <Menu />}
                 </button>
             </div>
-            {smallMenuOpen && 
-                <div className="md:hidden flex flex-col px-4 py-2 rounded-b-sm absolute top-full left-0 right-0 bg-slate-800">
-                    <Link href={`/sign-in?redirect=${pathname}`}  onClick={() => setSmallMenuOpen(false)} className="px-3 py-1 hover:bg-slate-700 rounded-sm">Sign In</Link>
-                    <Link href="/sign-up" onClick={() => setSmallMenuOpen(false)} className="px-3 py-1 hover:bg-slate-700 rounded-sm">Register</Link>
+            {smallMenuOpen &&
+                <div className="md:hidden flex flex-col px-4 py-2 rounded-b-sm absolute top-full left-0 right-0 bg-surface border-b border-border">
+                    <Link href={`/sign-in?redirect=${pathname}`} onClick={() => setSmallMenuOpen(false)} className="px-3 py-1 hover:bg-border rounded-sm">Sign In</Link>
+                    <Link href="/sign-up" onClick={() => setSmallMenuOpen(false)} className="px-3 py-1 hover:bg-border rounded-sm">Register</Link>
                 </div>
             }
         </header>
     )
-} 
+}

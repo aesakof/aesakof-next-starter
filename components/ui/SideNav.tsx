@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation"
 import Link from "next/link"
 
 type NavLink = {
-    label: string,
+    label: string
     href: string
 }
 
@@ -25,8 +25,8 @@ export default function SideNav({ links }: SideNavProps) {
                         href={href}
                         className={`px-3 py-1.5 rounded-md text-sm transition-colors ${
                             isActive
-                                ? "bg-slate-100 text-slate-900 font-medium"
-                                : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"
+                                ? "bg-surface text-text-primary font-medium"
+                                : "text-text-secondary hover:bg-surface hover:text-text-primary"
                         }`}
                     >
                         {label}
@@ -35,5 +35,4 @@ export default function SideNav({ links }: SideNavProps) {
             })}
         </nav>
     )
-
 }

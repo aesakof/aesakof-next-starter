@@ -30,10 +30,10 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
             onClick={(e) => { if (e.target === overlayRef.current) onClose() }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
         >
-            <div className="bg-white rounded-lg shadow-lg w-full max-w-md mx-4">
-                <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200">
-                    <h2 className="text-base font-semibold text-slate-900">{title}</h2>
-                    <button onClick={onClose} className="text-slate-400 hover:text-slate-600">
+            <div className="bg-surface-raised border border-border rounded-lg shadow-lg w-full max-w-md mx-4">
+                <div className="flex items-center justify-between px-6 py-4 border-b border-border">
+                    <h2 className="text-base font-semibold text-text-primary">{title}</h2>
+                    <button onClick={onClose} className="text-text-tertiary hover:text-text-secondary">
                         <X size={18} />
                     </button>
                 </div>

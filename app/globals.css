@@ -1,26 +1,58 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
     --background: #ffffff;
     --foreground: #171717;
+
+    --surface: #f8f8f8;
+    --surface-raised: #ffffff;
+
+    --border: #e2e8f0;
+
+    --text-primary: #171717;
+    --text-secondary: #64748b;
+    --text-tertiary: #94a3b8;
+
+    --input-bg: #ffffff;
+    --input-border: #cbd5e1;
+}
+
+.dark {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+
+    --surface: #141414;
+    --surface-raised: #1e1e1e;
+
+    --border: #2a2a2a;
+
+    --text-primary: #ededed;
+    --text-secondary: #94a3b8;
+    --text-tertiary: #64748b;
+
+    --input-bg: #1e1e1e;
+    --input-border: #374151;
 }
 
 @theme inline {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
+    --color-surface: var(--surface);
+    --color-surface-raised: var(--surface-raised);
+    --color-border: var(--border);
+    --color-text-primary: var(--text-primary);
+    --color-text-secondary: var(--text-secondary);
+    --color-text-tertiary: var(--text-tertiary);
+    --color-input-bg: var(--input-bg);
+    --color-input-border: var(--input-border);
     --font-sans: var(--font-geist-sans);
     --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --background: #0a0a0a;
-        --foreground: #ededed;
-    }
-}
-
 body {
-    /* background: var(--background);
-    color: var(--foreground); */
-    font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--text-primary);
+    font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }

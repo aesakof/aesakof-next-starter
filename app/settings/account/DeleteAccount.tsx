@@ -28,37 +28,36 @@ export default function DeleteAccount() {
 
     return (
         <>
-            <div className="border border-red-200 rounded-lg">
-                <div className="px-6 py-4 border-b border-red-200">
-                    <h2 className="text-base font-semibold text-red-600">Delete Account</h2>
-                    <p className="text-sm text-slate-500 mt-0.5">
+            <div className="border border-red-500/30 rounded-lg">
+                <div className="px-6 py-4 border-b border-red-500/30">
+                    <h2 className="text-base font-semibold text-red-500">Delete Account</h2>
+                    <p className="text-sm text-text-secondary mt-0.5">
                         Permanently delete your account and all associated data. This cannot be undone.
                     </p>
                 </div>
-                <div className="px-6 py-4 bg-red-50 rounded-b-lg">
+                <div className="px-6 py-4 bg-red-500/5 rounded-b-lg">
                     <Button variant="danger" onClick={() => setDeleteModalOpen(true)}>Delete account</Button>
                 </div>
             </div>
-
 
             <Modal
                 isOpen={deleteModalOpen}
                 onClose={() => { setDeleteModalOpen(false); setDeletePassword(""); setDeleteError("") }}
                 title="Delete Account"
             >
-                <p className="text-sm text-slate-500 mb-4">
+                <p className="text-sm text-text-secondary mb-4">
                     This will permanently delete your account and all associated data. Enter your password to confirm.
                 </p>
                 <div className="flex flex-col gap-1 mb-4">
-                    <label className="text-sm font-medium text-slate-700">Password</label>
+                    <label className="text-sm font-medium text-text-secondary">Password</label>
                     <input
                         type="password"
                         value={deletePassword}
                         onChange={e => setDeletePassword(e.target.value)}
-                        className="w-full border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-400"
+                        className="w-full border border-input-border bg-input-bg rounded-md px-3 py-1.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-border"
                     />
                     <div className="h-5">
-                        {deleteError && <p className="text-sm text-red-600">{deleteError}</p>}
+                        {deleteError && <p className="text-sm text-red-500">{deleteError}</p>}
                     </div>
                 </div>
                 <div className="flex justify-end gap-2">
