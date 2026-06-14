@@ -10,9 +10,9 @@ type CardProps = {
 
 export default function Card({ title, description, children, footer, danger }: CardProps) {
     return (
-        <div className={`rounded-lg border bg-surface-raised ${danger ? "border-red-500/30" : "border-border"}`}>
+        <div className={`rounded-lg border bg-surface-raised flex flex-col ${danger ? "border-red-500/30" : "border-border"}`}>
             {(title || description) && (
-                <div className="p-6 pb-4">
+                <div className={`p-6 flex-1 ${children ? "pb-4" : ""}`}>
                     {title && <h3 className="text-base font-semibold leading-none text-text-primary">{title}</h3>}
                     {description && <p className="mt-1.5 text-sm text-text-secondary">{description}</p>}
                 </div>
