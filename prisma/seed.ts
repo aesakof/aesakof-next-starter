@@ -1,5 +1,6 @@
 import { PrismaClient, Prisma } from "../app/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
+import { randomUUID } from "crypto";
 import "dotenv/config";
 
 const adapter = new PrismaPg({
@@ -12,10 +13,12 @@ const prisma = new PrismaClient({
 
 const userData: Prisma.UserCreateInput[] = [
     {
+        id: randomUUID(),
         name: "Alex",
         email: "aesakof@gmail.com",
     },
     {
+        id: randomUUID(),
         name: "Charles",
         email: "charles@bestboy.com",
     },
