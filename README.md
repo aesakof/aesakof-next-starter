@@ -1,6 +1,6 @@
 # aesakof-next-starter
 
-[INSERT DESCRIPTION HERE]
+A full-stack boilerplate project, enabling quick start-up for new projects complete with authentication, theming, and database setup.
 
 ## Tech Stack
 
