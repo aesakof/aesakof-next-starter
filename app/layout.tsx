@@ -21,7 +21,7 @@ const siteName = "[Project Name Here]";
 const description = "[Project description here]";
 
 export const metadata: Metadata = {
-    metadataBase: new URL(process.env.BETTER_AUTH_URL ?? "http://localhost:3000"),
+    metadataBase: new URL(process.env.BETTER_AUTH_URL || "http://localhost:3000"),
     title: {
         default: siteName,
         template: `%s | ${siteName}`,
