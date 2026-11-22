@@ -1,7 +1,7 @@
 "use client"
 
 import { useTheme } from "next-themes"
-import { useTransition } from "react"
+import { useTransition, useSyncExternalStore } from "react"
 import { savePreferences } from "@/lib/actions/preferences"
 import Card from "@/components/ui/Card"
 
@@ -17,13 +17,19 @@ type Props = {
     initialTheme: Theme
 }
 
+const subscribe = () => () => {}
+
 export default function AppearanceForm({ initialTheme }: Props) {
     const { theme, setTheme } = useTheme()
     const [isPending, startTransition] = useTransition()
 
-    const selectedTheme = theme === "light" || theme === "dark" || theme === "system"
-        ? theme
-        : initialTheme
+    const mounted = useSyncExternalStore(
+        subscribe,
+        () => true,
+        () => false
+    )
+
+    const selectedTheme = mounted ? (theme as Theme) : initialTheme
 
     function handleThemeChange(value: Theme) {
         setTheme(value)
@@ -46,7 +52,7 @@ export default function AppearanceForm({ initialTheme }: Props) {
                             disabled={isPending}
                             className={`rounded-lg border p-4 text-left transition-colors ${
                                 selectedTheme === value
-                                    ? "border-blue-500 bg-blue-500/10 text-text-primary"
+                                    ? "border-primary bg-primary/10 text-text-primary"
                                     : "border-border hover:bg-surface text-text-primary"
                             }`}
                         >

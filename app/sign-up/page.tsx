@@ -104,7 +104,7 @@ export default function SignUp() {
                     {errors && <p className="text-sm text-red-500">{errors}</p>}
                 </div>
                 <Button type="submit" isLoading={loading} fullWidth={true}>Register</Button>
-                <p className="text-text-secondary text-sm">Already have an account? <Link href="/sign-in" className="hover:underline text-blue-500">Sign in</Link></p>
+                <p className="text-text-secondary text-sm">Already have an account? <Link href="/sign-in" className="hover:underline text-accent">Sign in</Link></p>
             </form>
         </div>
     )

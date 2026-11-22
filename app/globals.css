@@ -6,6 +6,9 @@
     --background: #ffffff;
     --foreground: #171717;
 
+    --primary: #171717;
+    --primary-foreground: #ffffff;
+
     --surface: #f8f8f8;
     --surface-raised: #ffffff;
 
@@ -15,13 +18,22 @@
     --text-secondary: #64748b;
     --text-tertiary: #94a3b8;
 
+    --accent: #2563eb;
+
     --input-bg: #ffffff;
     --input-border: #cbd5e1;
+
+    /* --font-sans: var(--font-space-grotesk);
+    --font-heading: var(--font-fraunces);
+    --font-mono: var(--font-geist-mono); */
 }
 
 .dark {
     --background: #0a0a0a;
     --foreground: #ededed;
+
+    --primary: #ededed;
+    --primary-foreground: #0a0a0a;
 
     --surface: #141414;
     --surface-raised: #1e1e1e;
@@ -31,6 +43,8 @@
     --text-primary: #ededed;
     --text-secondary: #94a3b8;
     --text-tertiary: #64748b;
+
+    --accent: #2563eb;
 
     --input-bg: #1e1e1e;
     --input-border: #374151;
@@ -47,12 +61,22 @@
     --color-text-tertiary: var(--text-tertiary);
     --color-input-bg: var(--input-bg);
     --color-input-border: var(--input-border);
-    --font-sans: var(--font-geist-sans);
-    --font-mono: var(--font-geist-mono);
+    --color-accent: var(--accent);
+    --font-sans: var(--font-sans);
+    --font-heading: var(--font-heading);
+    --font-mono: var(--font-mono);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
 }
 
 body {
     background: var(--background);
     color: var(--text-primary);
-    font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+    font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+    html {
+        overflow-y: scroll;
+    }
 }

@@ -6,10 +6,32 @@ import { usePathname, useRouter } from "next/navigation"
 import UserMenu from "./UserMenu"
 import { Menu, X } from "lucide-react"
 import { authClient } from "@/lib/auth-client"
+import ThemeToggle from "./ThemeToggle"
 
-function MobileLink({href, onClick, children}: {href: string, onClick?: () => void, children:React.ReactNode}) {
+function MobileLink({href, active, onClick, children}: {href: string, active?: boolean, onClick?: () => void, children: React.ReactNode}) {
     return (
-        <Link href={href} onClick={onClick} className="px-3 py-1 hover:bg-border rounded-sm">
+        <Link
+            href={href}
+            onClick={onClick}
+            aria-current={active ? "page" : undefined}
+            className={`px-3 py-1 hover:bg-border rounded-sm ${
+                active ? "underline underline-offset-4" : ""
+            }`}
+        >
+            {children}
+        </Link>
+    )
+}
+
+function NavLink({href, active, children}: {href: string, active?: boolean, children: React.ReactNode}) {
+    return (
+        <Link
+            href={href}
+            aria-current={active ? "page" : undefined}
+            className={`px-3 py-2 hover:bg-surface rounded-sm ${
+                active ? "underline underline-offset-4" : ""
+            }`}
+        >
             {children}
         </Link>
     )
@@ -37,6 +59,7 @@ export default function NavBar() {
     ]
 
     const closeMenu = () => setSmallMenuOpen(false)
+    const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/")
 
     return (
         <header className="bg-surface-raised border-b border-border text-text-primary p-2 relative">
@@ -45,14 +68,17 @@ export default function NavBar() {
                     <Link href="/" className="px-4 py-2">[PROJECT LOGO HERE]</Link>
                     <div className="md:flex hidden">
                         {publicLinks.map(link => (
-                            <Link key={link.href} href={link.href} className="px-3 py-2 hover:bg-surface rounded-sm">
+                            <NavLink key={link.href} href={link.href} active={isActive(link.href)}>
                                 {link.label}
-                            </Link>
+                            </NavLink>
                         ))}
-                        {isPending ? null : session && <Link href="/dashboard" className="px-3 py-2 hover:bg-surface rounded-sm">Dashboard</Link>}
+                        {isPending ? null : session && (
+                            <NavLink href="/dashboard" active={isActive("/dashboard")}>Dashboard</NavLink>
+                        )}
                     </div>
                 </div>
                 <div className="md:flex items-center gap-4 hidden">
+                    <ThemeToggle />
                     {
                         isPending ? null : session ? <UserMenu username={session.user.username!}/> :
                         <>
@@ -61,24 +87,27 @@ export default function NavBar() {
                         </>
                     }
                 </div>
-                <button onClick={() => setSmallMenuOpen(!smallMenuOpen)} className="md:hidden flex px-4 py-2 hover:bg-surface rounded-sm">
-                    {smallMenuOpen ? <X /> : <Menu />}
-                </button>
+                <div className="md:hidden flex items-center gap-1">
+                    <ThemeToggle />
+                    <button onClick={() => setSmallMenuOpen(!smallMenuOpen)} className="flex px-4 py-2 hover:bg-surface rounded-sm">
+                        {smallMenuOpen ? <X /> : <Menu />}
+                    </button>
+                </div>
             </div>
             {smallMenuOpen &&
                 <div className="md:hidden z-50 flex flex-col px-4 py-2 rounded-b-sm absolute top-full left-0 right-0 bg-surface border-b border-border">
                     {isPending ? null : session ? (
                         <>
-                            <MobileLink href="/ui-samples" onClick={closeMenu}>UI Samples</MobileLink>
-                            <MobileLink href="/dashboard" onClick={closeMenu}>Dashboard</MobileLink>
-                            <MobileLink href="/settings" onClick={closeMenu}>Settings</MobileLink>
+                            <MobileLink href="/ui-samples" active={isActive("/ui-samples")} onClick={closeMenu}>UI Samples</MobileLink>
+                            <MobileLink href="/dashboard" active={isActive("/dashboard")} onClick={closeMenu}>Dashboard</MobileLink>
+                            <MobileLink href="/settings" active={isActive("/settings")} onClick={closeMenu}>Settings</MobileLink>
                             <button onClick={handleSignout} className="px-3 py-1 hover:bg-border rounded-sm text-left">Sign out</button>
                         </>
                     ) : (
                         <>
-                            <MobileLink href="/ui-samples" onClick={closeMenu}>UI Samples</MobileLink>
-                            <MobileLink href={`/sign-in?redirect=${pathname}`} onClick={closeMenu}>Sign In</MobileLink>
-                            <MobileLink href="/sign-up" onClick={closeMenu}>Register</MobileLink>
+                            <MobileLink href="/ui-samples" active={isActive("/ui-samples")} onClick={closeMenu}>UI Samples</MobileLink>
+                            <MobileLink href={`/sign-in?redirect=${pathname}`} active={isActive("/sign-in")} onClick={closeMenu}>Sign In</MobileLink>
+                            <MobileLink href="/sign-up" active={isActive("/sign-up")} onClick={closeMenu}>Register</MobileLink>
                         </>
                     )}
                 </div>

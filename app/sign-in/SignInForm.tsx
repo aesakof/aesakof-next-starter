@@ -66,7 +66,7 @@ export default function SignInForm() {
                 <div className="flex flex-col gap-1">
                     <div className="flex justify-between">
                         <label htmlFor="password" className="text-sm text-text-secondary">Password</label>
-                        <Link href="/forgot-password" className="text-sm hover:underline text-blue-500">Forgot password?</Link>
+                        <Link href="/forgot-password" className="text-sm hover:underline text-accent">Forgot password?</Link>
                     </div>
                     <input
                         id="password"
@@ -81,7 +81,7 @@ export default function SignInForm() {
                     {errors && <p className="text-sm text-red-500">{errors}</p>}
                 </div>
                 <Button type="submit" isLoading={loading} fullWidth={true}>Sign In</Button>
-                <p className="text-text-secondary text-sm">Need an account? <Link href="/sign-up" className="hover:underline text-blue-500">Sign up</Link></p>
+                <p className="text-text-secondary text-sm">Need an account? <Link href="/sign-up" className="hover:underline text-accent">Sign up</Link></p>
             </form>
         </div>
     )

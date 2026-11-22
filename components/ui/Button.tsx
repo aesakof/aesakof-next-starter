@@ -23,8 +23,8 @@ export default function Button({
 }: ButtonProps) {
 
     const variantClasses = {
-        primary: "bg-blue-600 hover:bg-blue-700 active:bg-blue-900 text-white",
-        secondary: "border border-border text-text-primary hover:bg-surface active:bg-surface",
+        primary: "bg-primary text-primary-foreground hover:opacity-90 active:opacity-80",
+        secondary: "border border-border text-text-primary hover:bg-surface active:bg-border",
         danger: "bg-red-600 hover:bg-red-700 active:bg-red-900 text-white",
     }
 
@@ -41,7 +41,7 @@ export default function Button({
             onClick={onClick}
             disabled={disabled || isLoading} 
             className={`
-                transition-colors font-medium
+                transition font-medium inline-flex items-center justify-center gap-2
                 ${disabled || isLoading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
                 ${fullWidth ? "w-full" : ""} 
                 ${sizeClasses[size]} 
